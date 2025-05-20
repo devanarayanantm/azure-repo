@@ -1,0 +1,36 @@
+apiVersion: 2019-12-01
+location: eastus
+name: devContainerGroup
+properties:
+  containers:
+  - name: dev-aci
+    properties:
+      image: devancr.azurecr.io/samples/nginx:v1
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 80
+      - port: 8080
+  - name: aci-tutorial-sidecar
+    properties:
+      image: devancr.azurecr.io/samples2/alpine:v1
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: tcp
+      port: 80
+    - protocol: tcp
+      port: 8080
+  imageRegistryCredentials:
+  - server: devancr.azurecr.io
+    username: devancr
+#    password: write pw
+tags: {exampleTag: tutorial}
+type: Microsoft.ContainerInstance/containerGroups
